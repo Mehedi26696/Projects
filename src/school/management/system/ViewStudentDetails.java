@@ -9,7 +9,6 @@ import java.sql.*;
 
 public class ViewStudentDetails extends JFrame {
 
-    // Constructor to display the table
     public ViewStudentDetails() {
         // Frame properties
         setTitle("Student Details");
@@ -18,15 +17,19 @@ public class ViewStudentDetails extends JFrame {
         setLocationRelativeTo(null);
         setLayout(new BorderLayout(10, 10)); // Add spacing for better layout
 
-        // Panel for search bar
+        // Panel for filters
         JPanel searchPanel = new JPanel();
         searchPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 10, 10)); // Left alignment with spacing
 
+        JLabel classLabel = new JLabel("Filter by Class: ");
+        JComboBox<String> classDropdown = new JComboBox<>(fetchClasses()); // Fetch class options from the database
         JLabel searchLabel = new JLabel("Search by Roll: ");
         JTextField searchField = new JTextField(15);
         JButton searchButton = new JButton("Search");
         JButton resetButton = new JButton("Reset");
 
+        searchPanel.add(classLabel);
+        searchPanel.add(classDropdown);
         searchPanel.add(searchLabel);
         searchPanel.add(searchField);
         searchPanel.add(searchButton);
@@ -45,9 +48,10 @@ public class ViewStudentDetails extends JFrame {
         tableModel.addColumn("Phone");
         tableModel.addColumn("Email");
         tableModel.addColumn("Birth Cert. No");
+        tableModel.addColumn("Class");
 
         // Fetch and populate initial table data
-        fetchData(tableModel, "");
+        fetchData(tableModel, "", "");
 
         // Set the table model and add it to a scroll pane
         table.setModel(tableModel);
@@ -57,16 +61,18 @@ public class ViewStudentDetails extends JFrame {
         searchButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                String selectedClass = (String) classDropdown.getSelectedItem();
                 String rollInput = searchField.getText().trim();
-                fetchData(tableModel, rollInput); // Fetch data based on roll
+                fetchData(tableModel, selectedClass, rollInput); // Fetch data based on class and roll
             }
         });
 
         resetButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                classDropdown.setSelectedIndex(0); // Reset to "All Classes"
                 searchField.setText("");
-                fetchData(tableModel, ""); // Fetch all data
+                fetchData(tableModel, "", ""); // Fetch all data
             }
         });
 
@@ -78,20 +84,55 @@ public class ViewStudentDetails extends JFrame {
         setVisible(true);
     }
 
-    // Method to fetch data from database
-    private void fetchData(DefaultTableModel tableModel, String roll) {
+    // Method to fetch class options from the database
+    private String[] fetchClasses() {
+        try {
+            Connect connect = new Connect();
+            ResultSet resultSet = connect.s.executeQuery("SELECT DISTINCT class FROM student");
+
+            // Use a list to dynamically collect class names
+            java.util.List<String> classes = new java.util.ArrayList<>();
+            classes.add("All Classes"); // Default option to fetch all records
+
+            while (resultSet.next()) {
+                classes.add(resultSet.getString("class"));
+            }
+
+            resultSet.close();
+            return classes.toArray(new String[0]);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Database Error: " + e.getMessage(),
+                    "Error", JOptionPane.ERROR_MESSAGE);
+            return new String[]{"All Classes"};
+        }
+    }
+
+    // Method to fetch data from the database
+    private void fetchData(DefaultTableModel tableModel, String selectedClass, String roll) {
         // Clear existing rows in the table model
         tableModel.setRowCount(0);
 
-        // Fetch data from database using the Connect class
+        // Build the query dynamically based on filters
+        String query = "SELECT name, fname, rollno, dob, address, phone, email, bc, class FROM student";
+        String condition = "";
+
+        if (!selectedClass.equals("All Classes")) {
+            condition += " WHERE class = '" + selectedClass + "'";
+        }
+        if (!roll.isEmpty()) {
+            if (!condition.isEmpty()) {
+                condition += " AND";
+            } else {
+                condition = " WHERE";
+            }
+            condition += " rollno = '" + roll + "'";
+        }
+
+        query += condition;
+
         try {
             Connect connect = new Connect();
-            String query = "SELECT name, fname, rollno, dob, address, phone, email, bc FROM student";
-
-            if (!roll.isEmpty()) {
-                query += " WHERE rollno = '" + roll + "'"; // Add WHERE clause for roll
-            }
-
             ResultSet resultSet = connect.s.executeQuery(query);
 
             while (resultSet.next()) {
@@ -103,8 +144,9 @@ public class ViewStudentDetails extends JFrame {
                 String phone = resultSet.getString("phone");
                 String email = resultSet.getString("email");
                 String bc = resultSet.getString("bc");
+                String cl = resultSet.getString("class");
 
-                tableModel.addRow(new Object[]{name, fname, rollNo, dob, address, phone, email, bc});
+                tableModel.addRow(new Object[]{name, fname, rollNo, dob, address, phone, email, bc, cl});
             }
 
             resultSet.close();
@@ -120,5 +162,3 @@ public class ViewStudentDetails extends JFrame {
         SwingUtilities.invokeLater(ViewStudentDetails::new);
     }
 }
-
-

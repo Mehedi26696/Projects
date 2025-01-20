@@ -1,5 +1,6 @@
 package school.management.system;
 
+import com.toedter.calendar.JDateChooser;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -35,6 +36,8 @@ public class Register extends JFrame implements ActionListener {
     Button cancel;
     JLabel uploadedImageLabel;
     File selectedFile; // To store the selected image file
+    
+    JDateChooser dcdob;
     
     String way;
 
@@ -85,15 +88,16 @@ public class Register extends JFrame implements ActionListener {
         rollField.setFont(font);
         formPanel.add(rollField);
 
-        JLabel dobLabel = new JLabel("Date of Birth:");
+         JLabel dobLabel = new JLabel("Date of Birth:");
         dobLabel.setBounds(30, 130, 150, 30);
         dobLabel.setFont(font);
         formPanel.add(dobLabel);
 
-        dobField = new JTextField();
-        dobField.setBounds(200, 130, 250, 30);
-        dobField.setFont(font);
-        formPanel.add(dobField);
+        dcdob = new JDateChooser();
+        dcdob.setBounds(200, 130, 200, 30); // Adjusted Y-coordinate to match dobLabel
+        dcdob.setBorder(BorderFactory.createLineBorder(new Color(70, 130, 180), 1));
+        dcdob.setBackground(Color.WHITE);
+        formPanel.add(dcdob);
 
         JLabel addressLabel = new JLabel("Address:");
         addressLabel.setBounds(30, 180, 150, 30);
@@ -212,7 +216,7 @@ public class Register extends JFrame implements ActionListener {
     if (ae.getSource() == submit) {
         String fullName = fullNameField.getText();
         String rollText = rollField.getText();
-        String dob = dobField.getText();
+        String dob = ((JTextField) dcdob.getDateEditor().getUiComponent()).getText();
         String address = addressField.getText();
         String phone = phoneField.getText();
         String email = emailField.getText();

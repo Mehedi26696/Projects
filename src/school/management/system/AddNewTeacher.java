@@ -10,8 +10,8 @@ import java.sql.Date;
 import java.text.SimpleDateFormat;
 
 public class AddNewTeacher extends JFrame implements ActionListener {
-    JTextField tfname, tffname, tfaddress, tfphone, tfemail, tfnid;
-    JLabel labelid;
+    JTextField tfname, tffname, tfid,tfaddress, tfphone, tfemail, tfnid;
+     
     JDateChooser dcdob;
 
     JButton submit, cancel;
@@ -63,11 +63,11 @@ public class AddNewTeacher extends JFrame implements ActionListener {
         lblrollno.setFont(new Font("Raleway", Font.BOLD, 18));
         container.add(lblrollno);
 
-        labelid = new JLabel("1111" + first4);
-        labelid.setBounds(250, 180, 200, 30);
-        labelid.setFont(new Font("Raleway", Font.BOLD, 18));
-        labelid.setForeground(new Color(70, 130, 180));
-        container.add(labelid);
+        tfid = new JTextField();
+        tfid.setBounds(250, 180, 200, 30);
+        tfid.setFont(new Font("Raleway", Font.BOLD, 18));
+        tfid.setForeground(new Color(70, 130, 180));
+        container.add(tfid);
 
         JLabel lbldob = new JLabel("Date of Birth");
         lbldob.setBounds(500, 180, 150, 30);
@@ -153,7 +153,7 @@ public class AddNewTeacher extends JFrame implements ActionListener {
 
             String name = tfname.getText();
             String fname = tffname.getText();
-            String IdText = labelid.getText();
+            String IdText = tfid.getText();
             
             String dob = ((JTextField) dcdob.getDateEditor().getUiComponent()).getText();
             

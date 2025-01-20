@@ -10,14 +10,14 @@ import java.sql.Date;
 import java.text.SimpleDateFormat;
 
 public class AddNewStudent extends JFrame implements ActionListener {
-    JTextField tfname, tffname, tfaddress, tfphone, tfemail, tfbc,tfclass;
-    JLabel labelrollno;
+    JTextField tfname, tffname,tfroll, tfaddress, tfphone, tfemail, tfbc,tfclass;
+ 
     JDateChooser dcdob;
 
     JButton submit, cancel;
 
-    Random ran = new Random();
-    long first4 = Math.abs((ran.nextLong() % 9000L) + 1000L);
+    //Random ran = new Random();
+    //long first4 = Math.abs((ran.nextLong() % 9000L) + 1000L);
 
     AddNewStudent() {
         setSize(1000, 700);
@@ -63,11 +63,11 @@ public class AddNewStudent extends JFrame implements ActionListener {
         lblrollno.setFont(new Font("Raleway", Font.BOLD, 18));
         container.add(lblrollno);
 
-        labelrollno = new JLabel("2022" + first4);
-        labelrollno.setBounds(250, 180, 200, 30);
-        labelrollno.setFont(new Font("Raleway", Font.BOLD, 18));
-        labelrollno.setForeground(new Color(70, 130, 180));
-        container.add(labelrollno);
+        tfroll = new JTextField();
+        tfroll.setBounds(250, 180, 200, 30);
+        tfroll.setFont(new Font("Raleway", Font.BOLD, 18));
+        tfroll.setForeground(new Color(70, 130, 180));
+        container.add(tfroll);
 
         JLabel lbldob = new JLabel("Date of Birth");
         lbldob.setBounds(500, 180, 150, 30);
@@ -165,7 +165,7 @@ public class AddNewStudent extends JFrame implements ActionListener {
 
             String name = tfname.getText();
             String fname = tffname.getText();
-            String rolltext = labelrollno.getText();
+            String rolltext = tfroll.getText();
             
             String dob = ((JTextField) dcdob.getDateEditor().getUiComponent()).getText();
             

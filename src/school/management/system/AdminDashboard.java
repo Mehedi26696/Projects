@@ -147,7 +147,7 @@ add(mainContentPanel, BorderLayout.CENTER);
             add(label);
 
             updateInfo = new CustomButton("Update Info");
-            totalInfo = new CustomButton("Total Information");
+            totalInfo = new CustomButton("All "+type+" Information");
 
             updateInfo.addActionListener(this);
             totalInfo.addActionListener(this);
