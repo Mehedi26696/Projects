@@ -10,7 +10,7 @@ import java.sql.Date;
 import java.text.SimpleDateFormat;
 
 public class AddNewStudent extends JFrame implements ActionListener {
-    JTextField tfname, tffname, tfaddress, tfphone, tfemail, tfbc;
+    JTextField tfname, tffname, tfaddress, tfphone, tfemail, tfbc,tfclass;
     JLabel labelrollno;
     JDateChooser dcdob;
 
@@ -117,12 +117,24 @@ public class AddNewStudent extends JFrame implements ActionListener {
         lblbc.setBounds(500, 300, 200, 30);
         lblbc.setFont(new Font("Raleway", Font.BOLD, 18));
         container.add(lblbc);
+        
 
         tfbc = new JTextField();
         tfbc.setBounds(700, 300, 200, 30);
         tfbc.setBorder(BorderFactory.createLineBorder(new Color(70, 130, 180), 1));
         tfbc.setBackground(Color.WHITE);
         container.add(tfbc);
+        
+        JLabel lblclass = new JLabel("Class");
+        lblclass .setBounds(50, 350, 150, 30);
+        lblclass .setFont(new Font("Raleway", Font.BOLD, 18));
+        container.add(lblclass);
+        
+        tfclass = new JTextField();
+        tfclass.setBounds(250, 350, 200, 30);
+        tfclass.setBorder(BorderFactory.createLineBorder(new Color(70, 130, 180), 1));
+        tfclass.setBackground(Color.WHITE);
+        container.add(tfclass);
 
         submit = new JButton("Submit");
         submit.setBounds(300, 450, 150, 40);
@@ -161,16 +173,17 @@ public class AddNewStudent extends JFrame implements ActionListener {
             String phone = tfphone.getText();
             String email = tfemail.getText();
             String bc = tfbc.getText();
+            String cl = tfclass.getText();
 
-            if (name.isEmpty() || fname.isEmpty() || email.isEmpty() || rolltext.isEmpty() || dob.isEmpty() || bc.isEmpty() || address.isEmpty() || phone.isEmpty()) {
+            if (name.isEmpty() || fname.isEmpty() || email.isEmpty() || rolltext.isEmpty() || dob.isEmpty() || bc.isEmpty() || address.isEmpty() || phone.isEmpty() || cl.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Please fill out all fields!", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
             int roll = Integer.parseInt(rolltext);
 
-            String query = "INSERT INTO student (name,fname, rollno, dob, address, phone, email, bc) VALUES ('"
-                    + name + "', '" + fname + "', " + roll + ", '" + dob + "', '" + address + "', '" + phone + "', '" + email + "', '" + bc + "')";
+            String query = "INSERT INTO student (name,fname, rollno, dob, address, phone, email, bc,class) VALUES ('"
+                    + name + "', '" + fname + "', " + roll + ", '" + dob + "', '" + address + "', '" + phone + "', '" + email + "', '" + bc + "','" + cl + "')";
 
             try {
                 Connect c = new Connect();

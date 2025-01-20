@@ -223,8 +223,8 @@ public class TeacherDashboard extends JFrame implements ActionListener {
             new TeacherViewClasses();
             
         } else if (ae.getSource() == UploadMaterials) {
-            // new StudentMaterials();
-            JOptionPane.showMessageDialog(this, "Access Study Materials - Feature Coming Soon");
+             new UploadMaterials();
+            //JOptionPane.showMessageDialog(this, "Access Study Materials - Feature Coming Soon");
         } else if(ae.getSource() == updateInfo) {
             new UpdateTeacher(passroll);
             // setVisible(false);

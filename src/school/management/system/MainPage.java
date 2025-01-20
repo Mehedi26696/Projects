@@ -33,25 +33,25 @@ public class MainPage extends JFrame implements ActionListener {
         background.add(schoolName);
 
         // Main Heading
-JLabel mainHeading = new JLabel("Welcome to DU High School", SwingConstants.CENTER);
-mainHeading.setFont(new Font("Raleway", Font.BOLD, 48)); // Font style and size for the main heading
-mainHeading.setForeground(Color.WHITE); // Text color
-mainHeading.setBounds(250, 200, 700, 60); // Centered approximately (x, y, width, height)
-background.add(mainHeading);
+        JLabel mainHeading = new JLabel("Welcome to DU High School", SwingConstants.CENTER);
+        mainHeading.setFont(new Font("Raleway", Font.BOLD, 48)); // Font style and size for the main heading
+        mainHeading.setForeground(Color.WHITE); // Text color
+        mainHeading.setBounds(250, 200, 700, 60); // Centered approximately (x, y, width, height)
+        background.add(mainHeading);
 
-// Subheading Line 1
-JLabel subHeading1 = new JLabel("Empowering Students to Learn, Grow, and Succeed", SwingConstants.CENTER);
-subHeading1.setFont(new Font("Raleway", Font.PLAIN, 24)); // Font style and size for subheading
-subHeading1.setForeground(new Color(30, 144, 255)); // Text color
-subHeading1.setBounds(300, 270, 600, 50); // Centered approximately
-background.add(subHeading1);
+       // Subheading Line 1
+        JLabel subHeading1 = new JLabel("Empowering Students to Learn, Grow, and Succeed", SwingConstants.CENTER);
+        subHeading1.setFont(new Font("Raleway", Font.PLAIN, 24)); // Font style and size for subheading
+        subHeading1.setForeground(new Color(30, 144, 255)); // Text color
+        subHeading1.setBounds(300, 270, 600, 50); // Centered approximately
+        background.add(subHeading1);
 
-// Subheading Line 2
-JLabel subHeading2 = new JLabel("A Place Where Education Meets Excellence", SwingConstants.CENTER);
-subHeading2.setFont(new Font("Raleway", Font.PLAIN, 24)); // Font style and size for subheading
-subHeading2.setForeground(new Color(30, 144, 255)); // Text color
-subHeading2.setBounds(300, 320, 600, 20); // Centered approximately
-background.add(subHeading2);
+        // Subheading Line 2
+        JLabel subHeading2 = new JLabel("A Place Where Education Meets Excellence", SwingConstants.CENTER);
+        subHeading2.setFont(new Font("Raleway", Font.PLAIN, 24)); // Font style and size for subheading
+        subHeading2.setForeground(new Color(30, 144, 255)); // Text color
+        subHeading2.setBounds(300, 320, 600, 20); // Centered approximately
+        background.add(subHeading2);
 
 
         JPanel buttonPanel = new JPanel();
