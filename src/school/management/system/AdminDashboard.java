@@ -130,66 +130,84 @@ add(mainContentPanel, BorderLayout.CENTER);
     }
 
     // ManagePage Class for Students or Teachers
-    static class ManagePage extends JFrame implements ActionListener {
-        String type;
-        CustomButton updateInfo, totalInfo;
+static class ManagePage extends JFrame implements ActionListener {
+    String type;
+    CustomButton updateInfo, totalInfo, addnewstudent;
 
-        ManagePage(String type) {
-            this.type = type;
-            setTitle("Manage " + type);
-            setSize(400, 300);
-            setLocationRelativeTo(null);
-            setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-            setLayout(new GridLayout(3, 1, 10, 10));
+    ManagePage(String type) {
+        this.type = type;
+        setTitle("Manage " + type);
+        setSize(400, 600);
+        setLocationRelativeTo(null);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
-            JLabel label = new JLabel("Manage " + type, JLabel.CENTER);
-            label.setFont(new Font("Raleway", Font.BOLD, 20));
-            add(label);
+        // Main layout
+        setLayout(new BorderLayout(10, 10));
+        getContentPane().setBackground(Color.WHITE); // Background color for the frame
 
-            updateInfo = new CustomButton("Update Info");
-            totalInfo = new CustomButton("All "+type+" Information");
+        // Header with styled label
+        JLabel label = new JLabel("Manage " + type, JLabel.CENTER);
+        label.setFont(new Font("Raleway", Font.BOLD, 24));
+        label.setForeground(new Color(52, 152, 219)); // Blue text
+        label.setBorder(BorderFactory.createEmptyBorder(20, 0, 20, 0)); // Add padding around the label
+        add(label, BorderLayout.NORTH);
 
-            updateInfo.addActionListener(this);
-            totalInfo.addActionListener(this);
+        // Panel for buttons
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.setLayout(new GridLayout(3, 1, 10, 10)); // Grid for buttons
+        buttonPanel.setBackground(Color.WHITE); // Background for button panel
 
-            add(updateInfo);
-            add(totalInfo);
+        // Buttons
+        addnewstudent = new CustomButton("Add New " + type);
+        updateInfo = new CustomButton("Update Info");
+        totalInfo = new CustomButton("All " + type + " Information");
 
-            setVisible(true);
-        }
+        addnewstudent.addActionListener(this);
+        updateInfo.addActionListener(this);
+        totalInfo.addActionListener(this);
 
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            if (e.getSource() == updateInfo) {
-                String input = JOptionPane.showInputDialog(this, "Enter ID or Roll:", "Update Info", JOptionPane.PLAIN_MESSAGE);
-                if (input != null && !input.trim().isEmpty()) {
-                    JOptionPane.showMessageDialog(this, "Proceeding to update info for: " + input, "Update Info", JOptionPane.INFORMATION_MESSAGE);
-                    // Add your logic here to update info based on the input
-                    int n = Integer.parseInt(input);
-                    if("Students".equals(type)){
-                        new UpdateStudent(n);
-                    }
-                    else if("Teachers".equals(type)){
-                        new UpdateTeacher(n);
-                    }
-                } else {
-                    JOptionPane.showMessageDialog(this, "ID or Roll cannot be empty!", "Error", JOptionPane.ERROR_MESSAGE);
+        // Add buttons to the panel
+        buttonPanel.add(addnewstudent);
+        buttonPanel.add(updateInfo);
+        buttonPanel.add(totalInfo);
+
+        add(buttonPanel, BorderLayout.CENTER);
+
+        
+
+        setVisible(true);
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == updateInfo) {
+            String input = JOptionPane.showInputDialog(this, "Enter ID or Roll:", "Update Info", JOptionPane.PLAIN_MESSAGE);
+            if (input != null && !input.trim().isEmpty()) {
+               // JOptionPane.showMessageDialog(this, "Proceeding to update info for: " + input, "Update Info", JOptionPane.INFORMATION_MESSAGE);
+                int n = Integer.parseInt(input);
+                if ("Students".equals(type)) {
+                    new UpdateStudent(n);
+                } else if ("Teachers".equals(type)) {
+                    new UpdateTeacher(n);
                 }
-            } else if (e.getSource() == totalInfo) {
-                //JOptionPane.showMessageDialog(this, "Displaying total information for " + type, "Total Information", JOptionPane.INFORMATION_MESSAGE);
-                // Add your logic here to display total information
-                if("Students".equals(type)){
-                        new ViewStudentDetails();
-                }
-                
-                else if("Teachers".equals(type)){
-                        new ViewTeacherDetails(); 
-                }
-                
-                
+            } else {
+                JOptionPane.showMessageDialog(this, "ID or Roll cannot be empty!", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } else if (e.getSource() == totalInfo) {
+            if ("Students".equals(type)) {
+                new ViewStudentDetails();
+            } else if ("Teachers".equals(type)) {
+                new ViewTeacherDetails();
+            }
+        } else if (e.getSource() == addnewstudent) {
+            if ("Students".equals(type)) {
+                new AddNewStudent();
+            } else if ("Teachers".equals(type)) {
+                new AddNewTeacher();
             }
         }
     }
+}
 
     // ManageClasses Class
     static class ManageClasses extends JFrame {
@@ -215,7 +233,7 @@ add(mainContentPanel, BorderLayout.CENTER);
     }
 
     
-
+    
     // Main Method
     public static void main(String[] args) {
         new AdminDashboard();

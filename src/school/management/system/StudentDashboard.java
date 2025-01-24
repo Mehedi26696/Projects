@@ -12,7 +12,7 @@ public class StudentDashboard extends JFrame implements ActionListener {
 
     private JLabel studentNameLabel, studentIdLabel, studentEmailLabel, studentImageLabel, studentdobLabel, studentphoneLabel, studentaddressLabel, additionalImageLabel;
     private String username;
-    CustomButton viewAttendance, updateInfo, viewGrades, accessMaterials, logout;
+    CustomButton viewAttendance, updateInfo, viewGrades, accessMaterials, logout,chat;
     
     int passroll;
 
@@ -22,7 +22,7 @@ public class StudentDashboard extends JFrame implements ActionListener {
         setTitle("Student Dashboard");
         setSize(1600, 900); 
         setLocationRelativeTo(null);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
       
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(new BorderLayout(10, 10)); 
@@ -99,30 +99,36 @@ public class StudentDashboard extends JFrame implements ActionListener {
         accessMaterials = new CustomButton("Access Study Materials");
         updateInfo = new CustomButton("Update Info");
         logout = new CustomButton("Logout");
+        chat = new CustomButton("Chat");
 
         viewAttendance.setBackground(new Color(34, 139, 34));
         viewGrades.setBackground(new Color(34, 139, 34));
         accessMaterials.setBackground(new Color(34, 139, 34));
         updateInfo.setBackground(new Color(34, 139, 34));
         logout.setBackground(new Color(34, 139, 34));
+        chat.setBackground(new Color(34, 139, 34));
 
         viewAttendance.setPreferredSize(new Dimension(250, 20));
         viewGrades.setPreferredSize(new Dimension(250, 40));
         accessMaterials.setPreferredSize(new Dimension(250, 40));
         updateInfo.setPreferredSize(new Dimension(250, 40));
         logout.setPreferredSize(new Dimension(250, 40));
+        chat.setPreferredSize(new Dimension(250, 40));
 
         viewAttendance.addActionListener(this);
         viewGrades.addActionListener(this);
         accessMaterials.addActionListener(this);
         updateInfo.addActionListener(this);
         logout.addActionListener(this);
+        chat.addActionListener(this);
 
         buttonPanel.add(viewAttendance);
         buttonPanel.add(viewGrades);
         buttonPanel.add(accessMaterials);
         buttonPanel.add(updateInfo);
         buttonPanel.add(logout);
+        buttonPanel.add(chat);
+        
 
         rightPanel.add(buttonPanel, BorderLayout.CENTER);
         mainPanel.add(headerPanel, BorderLayout.NORTH);
@@ -232,6 +238,8 @@ public class StudentDashboard extends JFrame implements ActionListener {
             setVisible(false);
             //new Login("student");
             new MainPage();
+        } else if(ae.getSource() == chat){
+            new ChatClient();
         }
     }
 

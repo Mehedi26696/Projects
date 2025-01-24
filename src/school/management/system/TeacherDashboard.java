@@ -12,7 +12,7 @@ public class TeacherDashboard extends JFrame implements ActionListener {
 
     private JLabel TeacherNameLabel, TeacherIdLabel, TeacherEmailLabel, TeacherImageLabel, TeacherdobLabel, TeacherphoneLabel, TeacheraddressLabel;
     private String username;
-    CustomButton SubmitAttendance, updateInfo, viewClasses, UploadMaterials, logout;
+    CustomButton SubmitAttendance, updateInfo, viewClasses, UploadMaterials, logout,chat;
     
     int passroll;
 
@@ -99,30 +99,35 @@ public class TeacherDashboard extends JFrame implements ActionListener {
         UploadMaterials = new CustomButton("Upload Study Materials");
         updateInfo = new CustomButton("Update Info");
         logout = new CustomButton("Logout");
+        chat = new CustomButton("chat");
 
         SubmitAttendance.setBackground(new Color(34, 139, 34));
         viewClasses.setBackground(new Color(34, 139, 34));
         UploadMaterials.setBackground(new Color(34, 139, 34));
         updateInfo.setBackground(new Color(34, 139, 34));
         logout.setBackground(new Color(34, 139, 34));
+        chat.setBackground(new Color(34, 139, 34));
 
         SubmitAttendance.setPreferredSize(new Dimension(250, 20));
         viewClasses.setPreferredSize(new Dimension(250, 40));
         UploadMaterials.setPreferredSize(new Dimension(250, 40));
         updateInfo.setPreferredSize(new Dimension(250, 40));
         logout.setPreferredSize(new Dimension(250, 40));
+        chat.setPreferredSize(new Dimension(250, 40));
 
         SubmitAttendance.addActionListener(this);
         viewClasses.addActionListener(this);
         UploadMaterials.addActionListener(this);
         updateInfo.addActionListener(this);
         logout.addActionListener(this);
+        chat.addActionListener(this);
 
         buttonPanel.add(SubmitAttendance);
         buttonPanel.add(viewClasses);
         buttonPanel.add(UploadMaterials);
         buttonPanel.add(updateInfo);
         buttonPanel.add(logout);
+        buttonPanel.add(chat);
 
         rightPanel.add(buttonPanel, BorderLayout.CENTER);
         mainPanel.add(headerPanel, BorderLayout.NORTH);
@@ -233,6 +238,9 @@ public class TeacherDashboard extends JFrame implements ActionListener {
             setVisible(false);
             //new Login("student");
             new MainPage();
+        } else if(ae.getSource() == chat){
+            new ChatServer();
+            new ChatClient();
         }
     }
 
